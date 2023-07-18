@@ -5,7 +5,7 @@ const port = 4001;
 
 const server = http.createServer((req, res) => {
   const { query, pathname } = url.parse(req.url, true);
-  res.writeHead(200, { "content-type": "text/html" });
+  res.writeHead(200, { "content-type": "application/json" });
 
   if (pathname === "/" || pathname === "/fruitLists") {
     const fruitLists = fs.readFileSync("./fruitLists.html", "utf-8");
