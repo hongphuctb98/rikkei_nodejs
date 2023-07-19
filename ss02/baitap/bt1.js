@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const url = require("url");
+const queryString = require("querystring");
 const port = 3002;
 
 const server = http.createServer((req, res) => {
@@ -65,9 +66,7 @@ const server = http.createServer((req, res) => {
       .replace(/{{price}}/g, searchFruits.price)
       .replace("{{from}}", searchFruits.from)
       .replace("{{nutrients}}", searchFruits.nutrients)
-
       .replace("{{organic}}", searchFruits.organic ? "organic" : "")
-
       .replace("{{description}}", searchFruits.description);
     res.write(fruitDetail);
   } else if (pathname === "/create") {
@@ -77,6 +76,17 @@ const server = http.createServer((req, res) => {
         `<figure class="card">${createBox}</figure>`
       )
     );
+    let data = "";
+    req
+      .on("error", (err) => {
+        console.log(err);
+      })
+      .on("data", (chunk) => {
+        data += chunk.toString();
+      })
+      .on("end", () => {
+        console.log(queryString.parse(data));
+      });
   } else {
     res.writeHead(400, "Content-Type", "text/html", "charset=utf-8");
     res.write("Page not found");

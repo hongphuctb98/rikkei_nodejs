@@ -14,7 +14,6 @@ const server = http.createServer((req, res) => {
   res.end();
 
   const { query } = url.parse(req.url, true);
-  console.log("query", query);
   let data = "";
   req
     .on("error", (err) => {
