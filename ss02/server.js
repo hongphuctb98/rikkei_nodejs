@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs");
 const url = require("url");
+const queryString = require("querystring");
 const port = 3000;
 
 const server = http.createServer((req, res) => {
@@ -13,7 +14,7 @@ const server = http.createServer((req, res) => {
   res.end();
 
   const { query } = url.parse(req.url, true);
-  console.log(query);
+  console.log("query", query);
   let data = "";
   req
     .on("error", (err) => {
@@ -23,9 +24,8 @@ const server = http.createServer((req, res) => {
       data += chunk.toString();
     })
     .on("end", () => {
-      console.log(data);
+      console.log(queryString.parse(data));
     });
-  console.log(data);
 });
 
 server.listen(port, () => {

@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
     const id = pathname.split("/")[2];
     let searchFruits = dataFruits.find((fruit) => fruit.id == id);
     const fruitDetail = productPage
-      .replace("{{image}}", searchFruits.image)
+      .replace(/{{image}}/g, searchFruits.image)
       .replace("{{productName}}", searchFruits.productName)
       .replace("{{quantity}}", searchFruits.quantity)
       .replace(/{{price}}/g, searchFruits.price)
